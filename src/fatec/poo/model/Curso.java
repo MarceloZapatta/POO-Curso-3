@@ -38,6 +38,10 @@ public class Curso {
         this.valor = Valor;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public void setDataVigencia(String dataVigencia) {
         this.dataVigencia = dataVigencia;
     }

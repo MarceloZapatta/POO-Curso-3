@@ -268,8 +268,8 @@ public class GuiCurso extends javax.swing.JFrame {
         curso.setCargaHoraria(Integer.parseInt(txtCargaHoraria.getText()));
         curso.setDataVigencia(formattedTxtDataVigencia.getText());
         curso.setPrograma(txtProgramaCurso.getText());
-        curso.setValor(Integer.valueOf(txtValorCurso.getText()));
-        curso.setValorHoraInstrutor(Integer.valueOf(txtValorHoraInstrutor.getText()));
+        curso.setValor(Double.valueOf(txtValorCurso.getText()));
+        curso.setValorHoraInstrutor(Double.valueOf(txtValorHoraInstrutor.getText()));
         daoCurso.inserir(curso);
 
         // Limpa os txts
@@ -282,6 +282,8 @@ public class GuiCurso extends javax.swing.JFrame {
         txtSiglaCurso.setEnabled(true);
         txtValorCurso.setEnabled(false);
         txtValorHoraInstrutor.setEnabled(false);
+        formattedTxtDataVigencia.setEnabled(false);
+        
         //Foco
         txtSiglaCurso.requestFocus();
         //Botões
@@ -296,11 +298,12 @@ public class GuiCurso extends javax.swing.JFrame {
 
         if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0) {
             //Obtendo alterações
+            curso.setNome(txtNomeCurso.getText());
             curso.setCargaHoraria(Integer.parseInt(txtCargaHoraria.getText()));
             curso.setDataVigencia(formattedTxtDataVigencia.getText());
             curso.setPrograma(txtProgramaCurso.getText());
-            curso.setValor(Integer.valueOf(txtValorCurso.getText()));
-            curso.setValorHoraInstrutor(Integer.valueOf(txtValorHoraInstrutor.getText()));
+            curso.setValor(Double.valueOf(txtValorCurso.getText()));
+            curso.setValorHoraInstrutor(Double.valueOf(txtValorHoraInstrutor.getText()));
             daoCurso.alterar(curso);
         }
         
@@ -364,8 +367,8 @@ public class GuiCurso extends javax.swing.JFrame {
             txtProgramaCurso.setEnabled(true);
             txtSiglaCurso.setEnabled(false);
             txtValorCurso.setEnabled(true);
-            txtValorHoraInstrutor.setEnabled(false);
-            formattedTxtDataVigencia.setEnabled(false);
+            txtValorHoraInstrutor.setEnabled(true);
+            formattedTxtDataVigencia.setEnabled(true);
             
             //Foco
             txtNomeCurso.requestFocus();
@@ -376,15 +379,13 @@ public class GuiCurso extends javax.swing.JFrame {
             btnAlterar.setEnabled(false);
             btnExcluir.setEnabled(false);
         } else {
+            txtNomeCurso.setText(curso.getNome());
             txtCargaHoraria.setText(String.valueOf(curso.getCargaHoraria()));
             formattedTxtDataVigencia.setText(curso.getDataVigencia());
             txtProgramaCurso.setText(curso.getPrograma());
             txtValorCurso.setText(String.valueOf(curso.getValor()));
             txtValorHoraInstrutor.setText(String.valueOf(curso.getValorHoraInstrutor()));
-               
-            // Limpar campos
-            this.limparCampos();
-            
+
             // Habilitando os campos para edição
             txtSiglaCurso.setEnabled(false);
             txtCargaHoraria.setEnabled(true);
@@ -392,6 +393,7 @@ public class GuiCurso extends javax.swing.JFrame {
             txtProgramaCurso.setEnabled(true);
             txtValorCurso.setEnabled(true);
             txtValorHoraInstrutor.setEnabled(true);
+            formattedTxtDataVigencia.setEnabled(true);
             
             //Foco
             txtNomeCurso.requestFocus();

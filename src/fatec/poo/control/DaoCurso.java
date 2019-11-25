@@ -33,7 +33,7 @@ public class DaoCurso {
                     + "DataVigencia_Curso, Valor_Curso, ValorHrInstrutor_Curso, "
                     + "Programa_Curso) "
                     + " VALUES "
-                    + "(?,?,?,?,?,?)");
+                    + "(?,?,?,?,?,?,?)");
             ps.setString(1, curso.getSigla());
             ps.setString(2, curso.getNome());
             ps.setInt(3, curso.getCargaHoraria());
@@ -57,7 +57,7 @@ public class DaoCurso {
                     + "CargaHoraria_Curso = ?, "
                     + "DataVigencia_Curso = ?, "
                     + "Valor_Curso = ?, "
-                    + "ValorHrInstrutor_Curso = ? "
+                    + "ValorHrInstrutor_Curso = ?, "
                     + "Programa_Curso = ? "
                     + "WHERE "
                     + "Sigla_Curso = ?");
@@ -67,8 +67,8 @@ public class DaoCurso {
             ps.setString(3, curso.getDataVigencia());
             ps.setDouble(4, curso.getValor());
             ps.setDouble(5, curso.getValorHoraInstrutor());
-            ps.setString(6, curso.getSigla());
-            ps.setString(7, curso.getPrograma());
+            ps.setString(6, curso.getPrograma());
+            ps.setString(7, curso.getSigla());
             ps.execute();
 
         } catch (SQLException ex) {
@@ -89,11 +89,11 @@ public class DaoCurso {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next() == true) {
-                curso = new Curso(sigla, rs.getString("Sigla_Curso"));
+                curso = new Curso(sigla, rs.getString("Nome_Curso"));
                 curso.setCargaHoraria(rs.getInt("CargaHoraria_Curso"));
                 curso.setDataVigencia(rs.getString("DataVigencia_Curso"));
                 curso.setValor(rs.getDouble("Valor_Curso"));
-                curso.setValorHoraInstrutor(rs.getDouble("ValorHrInstrutor"));
+                curso.setValorHoraInstrutor(rs.getDouble("ValorHrInstrutor_Curso"));
                 curso.setPrograma(rs.getString("Programa_Curso"));
             }
         } catch (SQLException ex) {
