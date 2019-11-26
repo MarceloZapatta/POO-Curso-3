@@ -429,14 +429,17 @@ public class GuiAluno extends javax.swing.JFrame {
             cbxEstadoCivil.addItem(civil);
         }
 
-        String[] escolaridade = new String[7];
-        escolaridade[0] = "Lê e escreve";
-        escolaridade[1] = "Ensino Fundamental Incompleto";
-        escolaridade[2] = "Ensino Fundamental Completo";
-        escolaridade[3] = "Ensino Médio Incompleto";
-        escolaridade[4] = "Ensino Médio Completo";
-        escolaridade[5] = "Ensino Superior Incompleto";
-        escolaridade[6] = "Ensino Superior Completo";
+        String[] escolaridades = new String[7];
+        escolaridades[0] = "Ensino Fundamental Incompleto";
+        escolaridades[1] = "Ensino Fundamental Completo";
+        escolaridades[2] = "Ensino Médio Incompleto";
+        escolaridades[3] = "Ensino Médio Completo";
+        escolaridades[4] = "Ensino Superior Incompleto";
+        escolaridades[5] = "Ensino Superior Completo";
+        
+        for (String escolaridade : escolaridades) {
+            cbxEscolaridade.addItem(escolaridade);
+        }
 
     }//GEN-LAST:event_formWindowOpened
 
@@ -635,6 +638,8 @@ public class GuiAluno extends javax.swing.JFrame {
                 cbxEscolaridade.setSelectedItem(aluno.getEscolaridade());       //Escolaridade
                 cbxEstado.setSelectedItem(aluno.getEstado());                   //Estado
                 cbxSexo.setSelectedItem(aluno.getSexo());                       //Sexo
+                cbxEstadoCivil.setSelectedItem(aluno.getEstadoCivil());
+                
                 //Formatteds(Sem CPF)
                 formattedTxtCelular.setText(aluno.getCelular());                //Celular
                 formattedTxtDataNascimento.setText(aluno.getDataNasc());        //Data Nasc
@@ -732,11 +737,13 @@ public class GuiAluno extends javax.swing.JFrame {
         txtNumero.setText("");
         txtRg.setText("");
         formattedTxtTelefoneResidencial.setText("");
+        formattedTxtDataNascimento.setText("");
 
         // Deselecionando combobox
-        cbxEscolaridade.setSelectedItem("");
-        cbxEstadoCivil.setSelectedItem("");
-        cbxSexo.setSelectedItem("");
+        cbxEscolaridade.setSelectedIndex(-1);
+        cbxEstadoCivil.setSelectedIndex(-1);
+        cbxSexo.setSelectedIndex(-1);
+        cbxEstado.setSelectedIndex(-1);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

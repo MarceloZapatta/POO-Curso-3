@@ -62,9 +62,10 @@ public class DaoAluno {
     public void alterar(Aluno aluno) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("UPDATE TbAluno SET"
+            ps = conn.prepareStatement("UPDATE TbAluno SET "
                     + "Nome_Aluno = ?, "
                     + "Bairro_Aluno = ?, "
+                    + "Celular_Aluno = ?, "
                     + "CEP_Aluno = ?, "
                     + "Cidade_Aluno = ?, "
                     + "DataNasc_Aluno = ?, "
@@ -130,7 +131,8 @@ public class DaoAluno {
                 aluno.setSexo(rs.getString("Sexo_Aluno"));
                 aluno.setTelefone(rs.getString("Telefone_Aluno"));
                 aluno.setNumero(rs.getInt("Numero_Aluno"));
-
+                aluno.setCEP(rs.getString("Cep_Aluno"));
+                aluno.setCelular(rs.getString("Celular_Aluno"));
             }
         } catch (SQLException ex) {
             System.out.println(ex.toString());
