@@ -156,6 +156,11 @@ public abstract class Pessoa {
 
     //Método validador de CPF
     public static boolean validaCPF(String cpf) {
+
+        // removendo mascara
+        cpf = cpf.replace(".", "");
+        cpf = cpf.replace("-", "");
+
         int d1, d2;
         int digito1, digito2, resto;
         int digitoCPF;
@@ -166,12 +171,12 @@ public abstract class Pessoa {
 
         for (int nCount = 1; nCount < cpf.length() - 1; nCount++) {
             digitoCPF = Integer.valueOf(cpf.substring(nCount - 1, nCount)).intValue();
-  
-            d1 = d1 + (11 - nCount) * digitoCPF; 
+
+            d1 = d1 + (11 - nCount) * digitoCPF;
             d2 = d2 + (12 - nCount) * digitoCPF;
         };
         resto = (d1 % 11);
-   
+
         if (resto < 2) {
             digito1 = 0;
         } else {
@@ -186,7 +191,7 @@ public abstract class Pessoa {
         }
         String nDigVerific = cpf.substring(cpf.length() - 2, cpf.length());
         nDigResult = String.valueOf(digito1) + String.valueOf(digito2);
-        
+
         return nDigVerific.equals(nDigResult);
     }
 }
