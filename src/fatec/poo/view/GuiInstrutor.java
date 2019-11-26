@@ -402,7 +402,7 @@ public class GuiInstrutor extends javax.swing.JFrame {
         txtRg.setText(instrutor.getRG());                                   //RG
         cbxSexo.setSelectedItem(instrutor.getSexo());                       //Sexo
         formattedTxtTelefoneResidencial.setText(instrutor.getTelefone());   //Telefone
-        //Chamada do daoInstutor inserir
+        
         daoInstrutor.inserir(instrutor);
 
         // Limpar componetes
@@ -423,6 +423,9 @@ public class GuiInstrutor extends javax.swing.JFrame {
         txtNumero.setEnabled(false);
         txtRg.setEnabled(false);
         formattedTxtTelefoneResidencial.setEnabled(false);
+        formattedTxtDataNascimento.setEnabled(false);
+        txtFormacao.setEnabled(false);
+        txtAreaAtuacao.setEnabled(false);
         //CombosBox
         cbxEstado.setEnabled(false);
         cbxEstadoCivil.setEnabled(false);
@@ -747,9 +750,9 @@ public class GuiInstrutor extends javax.swing.JFrame {
         formattedTxtTelefoneResidencial.setText("");
 
         //CombosBox
-        cbxEstadoCivil.setSelectedItem("");
-        cbxSexo.setSelectedItem("");
-        cbxEstado.setSelectedItem("");
+        cbxEstadoCivil.setSelectedIndex(-1);
+        cbxSexo.setSelectedIndex(-1);
+        cbxEstado.setSelectedIndex(-1);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
