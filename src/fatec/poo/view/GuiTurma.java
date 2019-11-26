@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author zaps
+ * @author Lucas Marcelo Savini
  */
 public class GuiTurma extends javax.swing.JFrame {
 
@@ -325,7 +325,6 @@ public class GuiTurma extends javax.swing.JFrame {
         Curso curso = new Curso(cbxCurso.getSelectedItem().toString(),
                 cbxCurso.getSelectedItem().toString());
         turma.setCurso(curso);
-
         //Chamando o método Inserir do Turma
         daoTurma.inserir(turma);
 
@@ -488,13 +487,17 @@ public class GuiTurma extends javax.swing.JFrame {
     }
 
     public void limparCampos() {
+        //Cbxs
         cbxCurso.setSelectedItem("");
+        cbxPeriodo.setSelectedItem("");
+        //Formatted
+        formattedDataInicio.setText("");
+        formattedDataTermino.setText("");
+        //Txts
         txtSiglaTurma.setText("");
         txtNome.setText("");
         txtQuantidadeVagas.setText("");
-        formattedDataInicio.setText("");
-        cbxPeriodo.setSelectedItem("");
-        formattedDataTermino.setText("");
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

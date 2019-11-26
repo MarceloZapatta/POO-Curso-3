@@ -13,7 +13,9 @@ import java.sql.SQLException;
 
 /**
  *
- * @author notebook
+ * @author Lucas
+ *         Marcelo
+ *         Savini
  */
 public class DaoAluno {
 
@@ -29,7 +31,7 @@ public class DaoAluno {
         try {
             ps = conn.prepareStatement("INSERT INTO TbAluno "
                     + "(CPF_Aluno, Nome_Aluno, Bairro_Aluno, Celular_Aluno, "
-                    + "CEP_Aluno,Cidade_Aluno,DataNasc_Aluno, Email_Aluno, "
+                    + "CEP_Aluno,Cidade_Aluno, DataNasc_Aluno, Email_Aluno, "
                     + "Endereco_Aluno, Escolaridade_Aluno, "
                     + "Estado_Aluno, EstadoCivil_Aluno, RG_Aluno, Sexo_Aluno, "
                     + "Telefone_Aluno, Numero_Aluno)"
@@ -119,7 +121,8 @@ public class DaoAluno {
             if (rs.next() == true) {
                 aluno = new Aluno(cpf, rs.getString("Nome_Aluno"));
                 aluno.setBairro(rs.getString("Bairro_Aluno"));
-                aluno.setBairro(rs.getString("CEP_Aluno"));
+                aluno.setCelular(rs.getString("Celular_Aluno"));
+                aluno.setCEP(rs.getString("CEP_Aluno"));
                 aluno.setCidade(rs.getString("Cidade_Aluno"));
                 aluno.setDataNasc(rs.getString("DataNasc_Aluno"));
                 aluno.setEmail(rs.getString("Email_Aluno"));

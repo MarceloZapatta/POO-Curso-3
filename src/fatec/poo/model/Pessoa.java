@@ -7,7 +7,9 @@ package fatec.poo.model;
 
 /**
  *
- * @author notebook
+ * @author Lucas
+ *         Marcelo
+ *         Savini
  */
 public abstract class Pessoa {
 
