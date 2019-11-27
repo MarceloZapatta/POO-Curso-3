@@ -13,7 +13,9 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author zaps
+ * @author Lucas
+ *         Marcelo
+ *         Savini
  */
 public class GuiInstrutor extends javax.swing.JFrame {
 

@@ -15,7 +15,9 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author zaps
+ * @author Lucas
+ *         Marcelo
+ *         Savini
  */
 public class GuiTurma extends javax.swing.JFrame {
 

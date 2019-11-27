@@ -14,7 +14,9 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author zaps
+ * @author Lucas
+ *         Marcelo
+ *         Savini
  */
 public class GuiAluno extends javax.swing.JFrame {
 

@@ -14,7 +14,9 @@ import java.util.ArrayList;
 
 /**
  *
- * @author notebook
+ * @author Lucas
+ *         Marcelo
+ *         Savini
  */
 public class DaoCurso {
 

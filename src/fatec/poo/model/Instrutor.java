@@ -9,7 +9,9 @@ import java.util.ArrayList;
 
 /**
  *
- * @author notebook
+ * @author Lucas
+ *         Marcelo
+ *         Savini
  */
 public class Instrutor extends Pessoa {
 

@@ -14,7 +14,9 @@ import java.sql.SQLException;
 
 /**
  *
- * @author notebook
+ * @author Lucas
+ *         Marcelo
+ *         Savini
  */
 public class DaoTurma {
 

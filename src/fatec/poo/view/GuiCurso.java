@@ -12,7 +12,9 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author zaps
+ * @author Lucas
+ *         Marcelo
+ *         Savini
  */
 public class GuiCurso extends javax.swing.JFrame {
     private Conexao conexao = null;
