@@ -31,7 +31,7 @@ public class DaoInstrutor {
                     + "(CPF_Instrutor, Nome_Instrutor, AreaAtuacao_Instrutor, "
                     + "Bairro_Instrutor, Celular_Instrutor, CEP_Instrutor, "
                     + "Cidade_Instrutor, DataNasc_Instrutor, Email_Instrutor, "
-                    + "Endereco_Instrutor,Estado_Instrutor, EstadoCivil_Instrutor,"
+                    + "Endereco_Instrutor, Estado_Instrutor, EstadoCivil_Instrutor, "
                     + "Formacao_Instrutor, RG_Instrutor, "
                     + "Sexo_Instrutor, Telefone_Instrutor, Numero_Instrutor)"
                     + " VALUES "
@@ -83,7 +83,7 @@ public class DaoInstrutor {
                     + "Telefone_Instrutor = ?, "
                     + "Numero_Instrutor = ? "
                     + "WHERE "
-                    + "CPFInstrutor = ?");
+                    + "CPF_Instrutor = ?");
 
             ps.setString(1, instrutor.getAreaAtuacao());
             ps.setString(2, instrutor.getBairro());
@@ -122,8 +122,7 @@ public class DaoInstrutor {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next() == true) {
-                instrutor = new Instrutor(cpf, rs.getString("CPF_Instrutor"));
-                instrutor.setAreaAtuacao(rs.getString("AreaAtuacao_Instrutor"));
+                instrutor = new Instrutor(cpf, rs.getString("AreaAtuacao_Instrutor"));
                 instrutor.setBairro(rs.getString("Bairro_Instrutor"));
                 instrutor.setCelular(rs.getString("Celular_Instrutor"));
                 instrutor.setCEP(rs.getString("CEP_Instrutor"));
