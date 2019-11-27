@@ -27,7 +27,7 @@ public class DaoInstrutor {
     public void inserir(Instrutor instrutor) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("INSERT INTO TbInstrutor("
+            ps = conn.prepareStatement("INSERT INTO TbInstrutor "
                     + "(CPF_Instrutor, Nome_Instrutor, AreaAtuacao_Instrutor, "
                     + "Bairro_Instrutor, Celular_Instrutor, CEP_Instrutor, "
                     + "Cidade_Instrutor, DataNasc_Instrutor, Email_Instrutor, "

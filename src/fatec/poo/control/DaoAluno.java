@@ -27,7 +27,7 @@ public class DaoAluno {
     public void inserir(Aluno aluno) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("INSERT INTO TbAluno("
+            ps = conn.prepareStatement("INSERT INTO TbAluno "
                     + "(CPF_Aluno, Nome_Aluno, Bairro_Aluno, Celular_Aluno, "
                     + "CEP_Aluno,Cidade_Aluno,DataNasc_Aluno, Email_Aluno, "
                     + "Endereco_Aluno, Escolaridade_Aluno, "
