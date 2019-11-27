@@ -5,6 +5,7 @@
  */
 package fatec.poo.view;
 
+import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoCurso;
 import fatec.poo.control.DaoTurma;
 import fatec.poo.model.Turma;
@@ -17,6 +18,8 @@ import javax.swing.JOptionPane;
  * @author zaps
  */
 public class GuiTurma extends javax.swing.JFrame {
+
+    private Conexao conexao = null;
     private Turma turma = null;
     private DaoTurma daoTurma = null;
     private DaoCurso daoCurso = null;
@@ -250,69 +253,80 @@ public class GuiTurma extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSairActionPerformed
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        // Procurando a turma
+        // Procurando a turma baseado no TXT Turma ou no Sigla do curso???
         turma = daoTurma.consultar(txtSiglaTurma.getText());
 
         if (turma == null) {
             // Habilita o campos para criação
+            //Cbxs
             cbxCurso.setEnabled(true);
+            cbxPeriodo.setEnabled(true);
+            //Formatted
+            formattedDataInicio.setEnabled(true);
+            formattedDataTermino.setEnabled(true);
+            //Txts
             txtSiglaTurma.setEnabled(false);
             txtNome.setEnabled(true);
             txtQuantidadeVagas.setEnabled(true);
-            formattedDataInicio.setEnabled(true);
-            cbxPeriodo.setEnabled(true);
-            formattedDataTermino.setEnabled(true);
-            
+
             //Foco
             txtNome.requestFocus();
-            
+
             //Botões
             btnConsultar.setEnabled(false);
             btnInserir.setEnabled(true);
             btnAlterar.setEnabled(false);
             btnExcluir.setEnabled(false);
         } else {
+            //Trazendo os dados da Turma
+            //Cbxs
             cbxCurso.setSelectedItem(turma.getCurso().getSigla());
-            txtNome.setText(turma.getDescricao());
-            txtQuantidadeVagas.setText(String.valueOf(turma.getQtdVagas()));
+            cbxPeriodo.setSelectedItem(turma.getPeriodo());
+            //Formatted
             formattedDataInicio.setText(turma.getDataInicio());
             formattedDataTermino.setText(turma.getDataTermino());
-            cbxPeriodo.setSelectedItem(turma.getPeriodo());
-               
+            //Txts
+            txtNome.setText(turma.getDescricao());
+            txtQuantidadeVagas.setText(String.valueOf(turma.getQtdVagas()));
+
             // Limpar campos
             this.limparCampos();
-            
-            // Habilitando os campos para edição
+
+            /*Habilitando campos
+            - Combos */
             cbxCurso.setEnabled(true);
-            txtSiglaTurma.setEnabled(false);
-            txtNome.setEnabled(true);
-            txtQuantidadeVagas.setEnabled(true);
-            formattedDataInicio.setEnabled(true);
             cbxPeriodo.setEnabled(true);
+            //FormattedTxt
+            formattedDataInicio.setEnabled(true);
             formattedDataTermino.setEnabled(true);
-            
-            //Foco
-            txtNome.requestFocus();
-            
+            //Txts
+            txtNome.setEnabled(false);
+            txtQuantidadeVagas.setEnabled(true);
+            txtSiglaTurma.setEnabled(true);
             //Botões
             btnConsultar.setEnabled(false);
             btnInserir.setEnabled(false);
             btnAlterar.setEnabled(true);
             btnExcluir.setEnabled(true);
+
+            //Foco
+            txtNome.requestFocus();
         }
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        turma = new Turma(txtSiglaTurma.getText(),
-                txtNome.getText());
-        turma.setDataInicio(formattedDataInicio.getText());
-        turma.setDataTermino(formattedDataTermino.getText());
-        turma.setPeriodo(cbxPeriodo.getSelectedItem().toString());
-        turma.setQtdVagas(Integer.parseInt(txtQuantidadeVagas.getText()));
-        
+        turma = new Turma(txtSiglaTurma.getText(), //Sigla Turma
+                txtNome.getText());                                             //Nome
+        turma.setDataInicio(formattedDataInicio.getText());                     //Data Inicio
+        turma.setDataTermino(formattedDataTermino.getText());                   //Data Termino
+        turma.setPeriodo(cbxPeriodo.getSelectedItem().toString());              //Periodo
+        turma.setQtdVagas(Integer.parseInt(txtQuantidadeVagas.getText()));      //Qtd Vagas
         // Atualizo a sigla do curso
-        Curso curso = new Curso(cbxCurso.getSelectedItem().toString(), cbxCurso.getSelectedItem().toString());
+        Curso curso = new Curso(cbxCurso.getSelectedItem().toString(),
+                cbxCurso.getSelectedItem().toString());
         turma.setCurso(curso);
+
+        //Chamando o método Inserir do Turma
         daoTurma.inserir(turma);
 
         // Limpar campos
@@ -321,17 +335,17 @@ public class GuiTurma extends javax.swing.JFrame {
         //Foco
         txtSiglaTurma.requestFocus();
 
-        /*Habilitando componentes
-            - Txts  */
-        txtNome.setEnabled(false);
-        txtQuantidadeVagas.setEnabled(false);
-        txtSiglaTurma.setEnabled(false);
+        /*Desabilitando componentes
+        - Combos */
+        cbxCurso.setEnabled(false);
+        cbxPeriodo.setEnabled(false);
         //FormattedTxt
         formattedDataInicio.setEnabled(false);
         formattedDataTermino.setEnabled(false);
-        //ComboBox
-        cbxCurso.setEnabled(false);
-        cbxPeriodo.setEnabled(false);
+        //Txts
+        txtNome.setEnabled(false);
+        txtQuantidadeVagas.setEnabled(false);
+        txtSiglaTurma.setEnabled(false);
         //Botões
         btnConsultar.setEnabled(true);
         btnInserir.setEnabled(false);
@@ -343,41 +357,39 @@ public class GuiTurma extends javax.swing.JFrame {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // TODO add your handling code here:
         if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0) {//Sim
-            //Obtendo alterações
-            turma.setSiglaTurma(txtSiglaTurma.getText());
-            turma.setDescricao(txtNome.getText());
-            turma.setDataInicio(formattedDataInicio.getText());
-            turma.setDataTermino(formattedDataInicio.getText());
-            //turma.set
-            turma.setPeriodo(cbxCurso.getSelectedItem().toString());
-            turma.setQtdVagas(Integer.parseInt(txtQuantidadeVagas.getText()));
-            
+            //Obtendo alterações  da turma                   
+            turma.setDescricao(txtNome.getText());                              //*Nome
+            turma.setDataInicio(formattedDataInicio.getText());                 //Data Inicio
+            turma.setDataTermino(formattedDataTermino.getText());               //Data Termino
+            turma.setSiglaTurma(txtSiglaTurma.getText());                       //Sigla
+            turma.setPeriodo(cbxCurso.getSelectedItem().toString());            //Periodo
+            turma.setQtdVagas(Integer.parseInt(txtQuantidadeVagas.getText()));  //Quantidade de Vagas
+
             // Atualizo a sigla do curso
-            Curso curso = new Curso(cbxCurso.getSelectedItem().toString(), cbxCurso.getSelectedItem().toString());
+            Curso curso = new Curso(cbxCurso.getSelectedItem().toString(),
+                    cbxCurso.getSelectedItem().toString());
             turma.setCurso(curso);
+            //Chamando o método alterar do DaoTurma
             daoTurma.alterar(turma);
         }
-        
+
         // Limpar campos
         this.limparCampos();
 
         // Foco
         txtSiglaTurma.requestFocus();
 
-        // Habilitando componentes
-        // Txtx
-        txtNome.setEnabled(false);
-        txtQuantidadeVagas.setEnabled(false);
-        txtSiglaTurma.setEnabled(false);
-        
-        //FormattedTxt
-        formattedDataInicio.setEnabled(false);
-        formattedDataTermino.setEnabled(false);
-        
+        // Desabilitando componentes
         //ComboBox
         cbxCurso.setEnabled(false);
         cbxPeriodo.setEnabled(false);
-        
+        //FormattedTxt
+        formattedDataInicio.setEnabled(false);
+        formattedDataTermino.setEnabled(false);
+        // Txts
+        txtNome.setEnabled(false);
+        txtQuantidadeVagas.setEnabled(false);
+        txtSiglaTurma.setEnabled(false);
         //Botões
         btnConsultar.setEnabled(true);
         btnInserir.setEnabled(false);
@@ -388,43 +400,55 @@ public class GuiTurma extends javax.swing.JFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if (JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0) {
             daoTurma.excluir(turma);
-            
+
             // Limpando componentes
             this.limparCampos();
 
             //Foco
             txtSiglaTurma.requestFocus();
 
-            // Habilitando componentes
+            //Desabilitando componentes
+            //CombosBox
+            cbxCurso.setEnabled(false);
+            cbxPeriodo.setEnabled(false);
+            //FormattedTxts
+            formattedDataInicio.setEnabled(false);
+            formattedDataTermino.setEnabled(false);
+            //Txts
             txtNome.setEnabled(false);
             txtQuantidadeVagas.setEnabled(false);
             txtSiglaTurma.setEnabled(false);
-            
-            //FormattedTxt
-            formattedDataInicio.setEnabled(false);
-            formattedDataTermino.setEnabled(false);
-            
-            //ComboBox
-            cbxCurso.setEnabled(false);
-            cbxPeriodo.setEnabled(false);
-            
+
             //Botões
             btnConsultar.setEnabled(true);
             btnInserir.setEnabled(false);
             btnAlterar.setEnabled(false);
             btnExcluir.setEnabled(false);
         }
-        /*Limpando componentes
-            - Txts */
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        conexao = new Conexao("BD1813031", "BD1813031");
+        conexao.setDriver("oracle.jdbc.driver.OracleDriver");
+        conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
+        daoTurma = new DaoTurma(conexao.conectar());
+
+        //Populando as siglas do curso CbxCurso
         ArrayList<String> siglasCursos;
-        
         siglasCursos = daoCurso.listarSiglasCursos();
-        
+
         for (String sigla : siglasCursos) {
             cbxCurso.addItem(sigla);
+
+        }
+        //Populando as periodo CbxPeriodo
+        String[] periodos = new String[3];
+        periodos[0] = "Matutino";
+        periodos[1] = "Vespertino";
+        periodos[2] = "Noturno";
+
+        for (String periodo : periodos) {
+            cbxPeriodo.addItem(periodo);
         }
     }//GEN-LAST:event_formWindowOpened
 
@@ -462,7 +486,7 @@ public class GuiTurma extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public void limparCampos() {
         cbxCurso.setSelectedItem("");
         txtSiglaTurma.setText("");

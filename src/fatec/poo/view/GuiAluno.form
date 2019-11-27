@@ -93,8 +93,8 @@
                           <Component id="formattedTxtDataNascimento" max="32767" attributes="0"/>
                           <Component id="txtNumero" max="32767" attributes="0"/>
                           <Component id="txtCep" max="32767" attributes="0"/>
-                          <Component id="txtTelefoneResidencial" max="32767" attributes="0"/>
-                          <Component id="txtCelular" max="32767" attributes="0"/>
+                          <Component id="formattedTxtTelefoneResidencial" max="32767" attributes="0"/>
+                          <Component id="formattedTxtCelular" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   </Group>
@@ -152,7 +152,7 @@
                       <Component id="lblCidade" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtCidade" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblTelResidencial" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtTelefoneResidencial" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="formattedTxtTelefoneResidencial" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -160,7 +160,7 @@
                   <Component id="lblRG" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtRg" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblCelular" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtCelular" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="formattedTxtCelular" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -342,7 +342,7 @@
         <Property name="text" type="java.lang.String" value="Telefone Residencial"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="txtTelefoneResidencial">
+    <Component class="javax.swing.JFormattedTextField" name="formattedTxtTelefoneResidencial">
       <Properties>
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
           <Format format="(##) ####-####" subtype="-1" type="5"/>
@@ -355,7 +355,7 @@
         <Property name="text" type="java.lang.String" value="Celular"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="txtCelular">
+    <Component class="javax.swing.JFormattedTextField" name="formattedTxtCelular">
       <Properties>
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
           <Format format="(##) #####-####" subtype="-1" type="5"/>

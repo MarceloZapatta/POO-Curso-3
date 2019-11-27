@@ -5,8 +5,10 @@
  */
 package fatec.poo.view;
 
+import fatec.poo.control.Conexao;
 import fatec.poo.control.DaoInstrutor;
 import fatec.poo.model.Instrutor;
+import static fatec.poo.model.Pessoa.validaCPF;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,8 +16,10 @@ import javax.swing.JOptionPane;
  * @author zaps
  */
 public class GuiInstrutor extends javax.swing.JFrame {
+
     private Instrutor instrutor = null;
     private DaoInstrutor daoInstrutor = null;
+    private Conexao conexao = null;
 
     /**
      * Creates new form GuiAluno
@@ -61,7 +65,7 @@ public class GuiInstrutor extends javax.swing.JFrame {
         lblTelResidencial = new javax.swing.JLabel();
         formattedTxtTelefoneResidencial = new javax.swing.JFormattedTextField();
         lblCelular = new javax.swing.JLabel();
-        txtCelular = new javax.swing.JFormattedTextField();
+        formattedTxtCelular = new javax.swing.JFormattedTextField();
         btnConsultar = new javax.swing.JButton();
         btnInserir = new javax.swing.JButton();
         btnAlterar = new javax.swing.JButton();
@@ -76,6 +80,11 @@ public class GuiInstrutor extends javax.swing.JFrame {
 
         setTitle("Cadastrar instrutor");
         setName("frmInstrutor"); // NOI18N
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         lblCPFInstrutor.setText("CPF");
 
@@ -151,11 +160,11 @@ public class GuiInstrutor extends javax.swing.JFrame {
         lblCelular.setText("Celular");
 
         try {
-            txtCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+            formattedTxtCelular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtCelular.setEnabled(false);
+        formattedTxtCelular.setEnabled(false);
 
         btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/fatec/poo/view/icon/pesq.png"))); // NOI18N
         btnConsultar.setText("Consultar");
@@ -280,7 +289,7 @@ public class GuiInstrutor extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtAreaAtuacao, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(txtCelular))
+                            .addComponent(formattedTxtCelular))
                         .addGap(29, 29, 29))))
         );
 
@@ -322,7 +331,7 @@ public class GuiInstrutor extends javax.swing.JFrame {
                             .addComponent(lblEstado)
                             .addComponent(cbxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCelular)
-                            .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(formattedTxtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblDataNasc)
@@ -363,7 +372,7 @@ public class GuiInstrutor extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cbxEstadoCivil, cbxSexo, formattedTxtCep, formattedTxtCpf, formattedTxtDataNascimento, formattedTxtTelefoneResidencial, txtAreaAtuacao, txtBairro, txtCelular, txtCidade, txtEmail, txtEndereco, txtFormacao, txtNome, txtNumero, txtRg});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cbxEstadoCivil, cbxSexo, formattedTxtCelular, formattedTxtCep, formattedTxtCpf, formattedTxtDataNascimento, formattedTxtTelefoneResidencial, txtAreaAtuacao, txtBairro, txtCidade, txtEmail, txtEndereco, txtFormacao, txtNome, txtNumero, txtRg});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAlterar, btnConsultar, btnExcluir, btnInserir, btnSair});
 
@@ -377,33 +386,34 @@ public class GuiInstrutor extends javax.swing.JFrame {
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         //Obtendo dados
-        instrutor = new Instrutor(formattedTxtCpf.getText(),
-                txtNome.getText());
-        instrutor.setAreaAtuacao(txtAreaAtuacao.getText());
-        instrutor.setBairro(txtBairro.getText());
-        instrutor.setCelular(txtCelular.getText());
-        instrutor.setCidade(txtCidade.getText());
-        instrutor.setCEP(formattedTxtCep.getText());
-        instrutor.setDataNasc(formattedTxtDataNascimento.getText());
-        instrutor.setEmail(txtEmail.getText());
-        instrutor.setEndereco(txtEndereco.getText());
-        instrutor.setEstado(cbxEstado.getSelectedItem().toString());
-        instrutor.setEstadoCivil(cbxEstadoCivil.getSelectedItem().toString());
-        instrutor.setNumero(Integer.parseInt(txtNumero.getText()));
-        instrutor.setRG(txtRg.getText());
-        instrutor.setSexo(cbxSexo.getSelectedItem().toString());
-        instrutor.setTelefone(formattedTxtTelefoneResidencial.getText());
+        instrutor = new Instrutor(formattedTxtCpf.getText(), //CPF
+                txtNome.getText());                                         //Nome
+        txtAreaAtuacao.setText(instrutor.getAreaAtuacao());                 //Area Atuaçção
+        txtBairro.setText(instrutor.getBairro());                           //Bairro
+        formattedTxtCelular.setText(instrutor.getCelular());                //Celular
+        txtCidade.setText(instrutor.getCidade());                           //Cidade
+        formattedTxtCep.setText(instrutor.getCEP());                        //CEP
+        formattedTxtDataNascimento.setText(instrutor.getDataNasc());        //Data Nascimento
+        txtEmail.setText(instrutor.getEmail());                             //E-mail
+        txtEndereco.setText(instrutor.getEndereco());                       //Endereço
+        cbxEstado.setSelectedItem(instrutor.getEstado());                   //Estado
+        cbxEstadoCivil.setSelectedItem(instrutor.getEstadoCivil());         //Estado Civil
+        txtNumero.setText(String.valueOf(instrutor.getNumero()));           //Numero 
+        txtRg.setText(instrutor.getRG());                                   //RG
+        cbxSexo.setSelectedItem(instrutor.getSexo());                       //Sexo
+        formattedTxtTelefoneResidencial.setText(instrutor.getTelefone());   //Telefone
+        //Chamada do daoInstutor inserir
         daoInstrutor.inserir(instrutor);
-        
+
         // Limpar componetes
         this.limparCampos();
-        
+
         // Foco
         formattedTxtCpf.requestFocus();
-        
+
         // Habilitando componentes
         txtBairro.setEnabled(false);
-        txtCelular.setEnabled(false);
+        formattedTxtCelular.setEnabled(false);
         formattedTxtCep.setEnabled(false);
         txtCidade.setEnabled(false);
         formattedTxtCpf.setEnabled(true);
@@ -427,48 +437,50 @@ public class GuiInstrutor extends javax.swing.JFrame {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0) {//Sim
             //Obtendo alterações
-            instrutor.setAreaAtuacao(txtAreaAtuacao.getText());
-            instrutor.setBairro(txtBairro.getText());
-            instrutor.setCelular(txtCelular.getText());
-            instrutor.setCidade(txtCidade.getText());
-            instrutor.setCEP(formattedTxtCep.getText());
-            instrutor.setDataNasc(formattedTxtDataNascimento.getText());
-            instrutor.setEmail(txtEmail.getText());
-            instrutor.setEndereco(txtEndereco.getText());
-            instrutor.setEstado(cbxEstado.getSelectedItem().toString());
-            instrutor.setEstadoCivil(cbxEstadoCivil.getSelectedItem().toString());
-            instrutor.setNome(txtNome.getText());
-            instrutor.setNumero(Integer.parseInt(txtNumero.getText()));
-            instrutor.setRG(txtRg.getText());
-            instrutor.setSexo(cbxSexo.getSelectedItem().toString());
-            instrutor.setTelefone(formattedTxtTelefoneResidencial.getText());
+            txtAreaAtuacao.setText(instrutor.getAreaAtuacao());                 //Area Atuaçção
+            txtBairro.setText(instrutor.getBairro());                           //Bairro
+            formattedTxtCelular.setText(instrutor.getCelular());                //Celular
+            txtCidade.setText(instrutor.getCidade());                           //Cidade
+            formattedTxtCep.setText(instrutor.getCEP());                        //CEP
+            formattedTxtDataNascimento.setText(instrutor.getDataNasc());        //Data Nascimento
+            txtEmail.setText(instrutor.getEmail());                             //E-mail
+            txtEndereco.setText(instrutor.getEndereco());                       //Endereço
+            cbxEstado.setSelectedItem(instrutor.getEstado());                   //Estado
+            cbxEstadoCivil.setSelectedItem(instrutor.getEstadoCivil());         //Estado Civil
+            txtFormacao.setText(instrutor.getFormacao());                       //Formação
+            txtNumero.setText(String.valueOf(instrutor.getNumero()));           //Numero 
+            txtRg.setText(instrutor.getRG());                                   //RG
+            cbxSexo.setSelectedItem(instrutor.getSexo());                       //Sexo
+            formattedTxtTelefoneResidencial.setText(instrutor.getTelefone());   //Telefone
             //Chamada do daoInstutor Alterar
             daoInstrutor.alterar(instrutor);
         }
-        
+
         // Limpar campos
         this.limparCampos();
-        
+
         // Foco
         formattedTxtCpf.requestFocus();
-        
+
         // Habilitando componentes
+        //CombosBox
+        cbxEstado.setEnabled(false);
+        cbxEstadoCivil.setEnabled(false);
+        cbxSexo.setEnabled(false);
+        //Formatteds
+        formattedTxtCelular.setEnabled(false);
+        formattedTxtCpf.setEnabled(true);       //CPF TRUE
+        formattedTxtCep.setEnabled(false);
+        formattedTxtTelefoneResidencial.setEnabled(false);
         // Txts
         txtBairro.setEnabled(false);
-        txtCelular.setEnabled(false);
-        formattedTxtCep.setEnabled(false);
         txtCidade.setEnabled(false);
-        formattedTxtCpf.setEnabled(true);
         txtEmail.setEnabled(false);
         txtEndereco.setEnabled(false);
         txtNome.setEnabled(false);
         txtNumero.setEnabled(false);
         txtRg.setEnabled(false);
-        formattedTxtTelefoneResidencial.setEnabled(false);
-        //CombosBox
-        cbxEstado.setEnabled(false);
-        cbxEstadoCivil.setEnabled(false);
-        cbxSexo.setEnabled(false);
+
         //Botões
         btnConsultar.setEnabled(true);
         btnInserir.setEnabled(false);
@@ -477,32 +489,35 @@ public class GuiInstrutor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
         if (JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0) {
             daoInstrutor.excluir(instrutor);
 
+            // Limpar campos
             this.limparCampos();
-            
+
             // Foco
             formattedTxtCpf.requestFocus();
-            
+
             // Habilitando componentes
-            // Txts
-            txtBairro.setEnabled(false);
-            txtCelular.setEnabled(false);
-            formattedTxtCep.setEnabled(false);
-            txtCidade.setEnabled(false);
-            formattedTxtCpf.setEnabled(true);
-            txtEmail.setEnabled(false);
-            txtEndereco.setEnabled(false);
-            txtNome.setEnabled(false);
-            txtNumero.setEnabled(false);
-            txtRg.setEnabled(false);
-            formattedTxtTelefoneResidencial.setEnabled(false);
             //CombosBox
             cbxEstado.setEnabled(false);
             cbxEstadoCivil.setEnabled(false);
             cbxSexo.setEnabled(false);
+            //Formatteds
+            formattedTxtCelular.setEnabled(false);
+            formattedTxtCpf.setEnabled(true);       //CPF TRUE
+            formattedTxtCep.setEnabled(false);
+            formattedTxtTelefoneResidencial.setEnabled(false);
+            // Txts
+            txtBairro.setEnabled(false);
+            txtCidade.setEnabled(false);
+            txtEmail.setEnabled(false);
+            txtEndereco.setEnabled(false);
+            txtFormacao.setEnabled(false);
+            txtNome.setEnabled(false);
+            txtNumero.setEnabled(false);
+            txtRg.setEnabled(false);
+
             //Botões
             btnConsultar.setEnabled(true);
             btnInserir.setEnabled(false);
@@ -513,82 +528,161 @@ public class GuiInstrutor extends javax.swing.JFrame {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         instrutor = null;
-        instrutor = daoInstrutor.consultar(formattedTxtCpf.getText());
 
-        if (instrutor == null) {
-            // Habilitando os componentes
-            txtBairro.setEnabled(true);
-            txtCelular.setEnabled(true);
-            formattedTxtCep.setEnabled(true);
-            txtCidade.setEnabled(true);
-            txtEmail.setEnabled(true);
-            txtEndereco.setEnabled(true);
-            txtNome.setEnabled(true);
-            txtNumero.setEnabled(true);
-            txtRg.setEnabled(true);
-            
-            formattedTxtCep.setEnabled(true);
-            formattedTxtCpf.setEnabled(false);
-            formattedTxtDataNascimento.setEnabled(true);
-            formattedTxtTelefoneResidencial.setEnabled(true);
-            
-            //CombosBox
-            cbxEstado.setEnabled(true);
-            cbxEstadoCivil.setEnabled(true);
-            cbxSexo.setEnabled(true);
-            
-            //Botões
-            btnConsultar.setEnabled(false);
-            btnInserir.setEnabled(true);
-            btnAlterar.setEnabled(false);
-            btnExcluir.setEnabled(false);
-        } else {
-            // Obtendo dados
-            txtAreaAtuacao.setText(instrutor.getAreaAtuacao());
-            txtBairro.setText(instrutor.getBairro());
-            txtCelular.setText(instrutor.getCelular());
-            txtCidade.setText(instrutor.getAreaAtuacao());
-            formattedTxtCep.setText(instrutor.getCEP());
-            formattedTxtDataNascimento.setText(instrutor.getDataNasc());
-            txtEmail.setText(instrutor.getEmail());
-            txtEndereco.setText(instrutor.getEndereco());
-            cbxEstado.setSelectedItem(instrutor.getEstado());
-            cbxEstadoCivil.setSelectedItem(instrutor.getEstadoCivil());
-            txtNumero.setText(String.valueOf(instrutor.getNumero()));
-            txtRg.setText(instrutor.getRG());
-            cbxSexo.setSelectedItem(instrutor.getSexo());
-            formattedTxtTelefoneResidencial.setText(instrutor.getTelefone());
+        String cpf = formattedTxtCpf.getText();
 
-            // Habilitando componetes
-            // Txts
-            txtAreaAtuacao.setEnabled(true);
-            txtBairro.setEnabled(true);
-            txtCelular.setEnabled(true);
-            txtCidade.setEnabled(true);
-            txtEmail.setEnabled(true);
-            txtEndereco.setEnabled(true);
-            txtNome.setEnabled(true);
-            txtNumero.setEnabled(true);
-            txtRg.setEnabled(true);
-            
-            //FormattedTxt
-            formattedTxtCpf.setEnabled(false);
-            formattedTxtCep.setEnabled(true);
-            formattedTxtDataNascimento.setEnabled(true);
-            formattedTxtTelefoneResidencial.setEnabled(true);
-            
-            //CombosBox
-            cbxEstado.setEnabled(true);
-            cbxEstadoCivil.setEnabled(true);
-            cbxSexo.setEnabled(true);
-            
-            //Botões
+        if (validaCPF(cpf) == false) {
+            JOptionPane.showMessageDialog(null, "CPF Inválido! Por favor digite"
+                    + "um CPF válido! ");
+            formattedTxtCpf.setText("");
             btnConsultar.setEnabled(true);
-            btnInserir.setEnabled(false);
-            btnAlterar.setEnabled(false);
-            btnExcluir.setEnabled(false);
+        } else {
+            //Chamando o método Consultar da classe DaoInstrutor
+            instrutor = daoInstrutor.consultar(formattedTxtCpf.getText());
+
+            if (instrutor == null) {
+
+                /*Habilitando os componentes 
+            - CombosBox */
+                cbxEstado.setEnabled(true);                                     //Estado
+                cbxEstadoCivil.setEnabled(true);                                //Estado Civil
+                cbxSexo.setEnabled(true);                                       //Sexo
+                //Formatteds
+                formattedTxtCelular.setEnabled(true);                           //Celular
+                formattedTxtCep.setEnabled(true);                               //CEP
+                formattedTxtCpf.setEnabled(false);                              //CPF
+                formattedTxtDataNascimento.setEnabled(true);                    //Data Nasc
+                formattedTxtTelefoneResidencial.setEnabled(true);               //Telefone
+                //Txts
+                txtAreaAtuacao.setEnabled(true);                                //Area Atuacao
+                txtBairro.setEnabled(true);                                     //Bairro
+                txtCidade.setEnabled(true);                                     //Cidade
+                txtEmail.setEnabled(true);                                      //Email
+                txtEndereco.setEnabled(true);                                   //Endereco
+                txtFormacao.setEnabled(true);                                   //Formacao
+                txtNome.setEnabled(true);                                       //Nome
+                txtNumero.setEnabled(true);                                     //Numero
+                txtRg.setEnabled(true);                                         //RG
+
+                //Botões
+                btnConsultar.setEnabled(false);
+                btnInserir.setEnabled(true);
+                btnAlterar.setEnabled(false);
+                btnExcluir.setEnabled(false);
+
+            } else {
+                //Obtendo dados do Instrutor
+                txtAreaAtuacao.setText(instrutor.getAreaAtuacao());                 //Area Atuaçção
+                txtBairro.setText(instrutor.getBairro());                           //Bairro
+                formattedTxtCelular.setText(instrutor.getCelular());                //Celular
+                txtCidade.setText(instrutor.getCidade());                           //Cidade
+                formattedTxtCep.setText(instrutor.getCEP());                        //CEP
+                formattedTxtDataNascimento.setText(instrutor.getDataNasc());        //Data Nascimento
+                txtEmail.setText(instrutor.getEmail());                             //E-mail
+                txtEndereco.setText(instrutor.getEndereco());                       //Endereço
+                cbxEstado.setSelectedItem(instrutor.getEstado());                   //Estado
+                cbxEstadoCivil.setSelectedItem(instrutor.getEstadoCivil());         //Estado Civil
+                txtFormacao.setText(instrutor.getFormacao());                       //Formação
+                txtNumero.setText(String.valueOf(instrutor.getNumero()));           //Numero 
+                txtRg.setText(instrutor.getRG());                                   //RG
+                cbxSexo.setSelectedItem(instrutor.getSexo());                       //Sexo
+                formattedTxtTelefoneResidencial.setText(instrutor.getTelefone());   //Telefone
+
+                // Habilitando componetes
+                //CombosBox
+                cbxEstado.setEnabled(true);
+                cbxEstadoCivil.setEnabled(true);
+                cbxSexo.setEnabled(true);
+                //FormattedTxt
+                formattedTxtCep.setEnabled(true);
+                formattedTxtCelular.setEnabled(true);
+                formattedTxtCpf.setEnabled(false);
+                formattedTxtDataNascimento.setEnabled(true);
+                formattedTxtTelefoneResidencial.setEnabled(true);
+                // Txts
+                txtAreaAtuacao.setEnabled(true);
+                txtBairro.setEnabled(true);
+                txtCidade.setEnabled(true);
+                txtEmail.setEnabled(true);
+                txtEndereco.setEnabled(true);
+                txtFormacao.setEnabled(true);
+                txtNome.setEnabled(true);
+                txtNumero.setEnabled(true);
+                txtRg.setEnabled(true);
+
+                //Botões
+                btnConsultar.setEnabled(true);
+                btnInserir.setEnabled(false);
+                btnAlterar.setEnabled(false);
+                btnExcluir.setEnabled(false);
+            }
         }
     }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        conexao = new Conexao("BD1813031", "BD1813031");
+        conexao.setDriver("oracle.jdbc.driver.OracleDriver");
+        conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
+        daoInstrutor = new DaoInstrutor(conexao.conectar());
+
+        //Populando Combo box Sexo
+        String[] sexos = new String[3];
+        sexos[0] = "M";
+        sexos[1] = "F";
+        sexos[2] = "Outro";
+
+        for (String sexo : sexos) {
+            cbxSexo.addItem(sexo);
+        }
+
+        ////Populando Combo box estados
+        String[] estados = new String[26];
+        estados[0] = "AC";
+        estados[1] = "AL";
+        estados[2] = "AP";
+        estados[3] = "AM";
+        estados[4] = "BA";
+        estados[5] = "CE";
+        estados[6] = "DF";
+        estados[7] = "ES";
+        estados[8] = "GO";
+        estados[9] = "MA";
+        estados[10] = "MS";
+        estados[11] = "MT";
+        estados[12] = "MG";
+        estados[13] = "PA";
+        estados[14] = "PB";
+        estados[15] = "PR";
+        estados[16] = "PE";
+        estados[17] = "PI";
+        estados[18] = "RJ";
+        estados[19] = "RN";
+        estados[20] = "RS";
+        estados[21] = "RO";
+        estados[22] = "RR";
+        estados[22] = "SC";
+        estados[23] = "SP";
+        estados[24] = "SE";
+        estados[25] = "TO";
+
+        for (String estado : estados) {
+            cbxEstado.addItem(estado);
+        }
+
+        //Populando Combo box estado civil
+        String[] estadoCivil = new String[5];
+        estadoCivil[0] = "Solteiro";
+        estadoCivil[1] = "Casado";
+        estadoCivil[2] = "Separado";
+        estadoCivil[3] = "Divorciado";
+        estadoCivil[4] = "Viúvo";
+
+        for (String civil : estadoCivil) {
+            cbxEstadoCivil.addItem(civil);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -633,11 +727,11 @@ public class GuiInstrutor extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public void limparCampos() {
         txtAreaAtuacao.setText("");
         txtBairro.setText("");
-        txtCelular.setText("");
+        formattedTxtCelular.setText("");
         txtCidade.setText("");
         txtEmail.setText("");
         txtEndereco.setText("");
@@ -645,13 +739,13 @@ public class GuiInstrutor extends javax.swing.JFrame {
         txtNome.setText("");
         txtNumero.setText("");
         txtRg.setText("");
-        
+
         //Formatted Txts
         formattedTxtCpf.setText("");
         formattedTxtCep.setText("");
         formattedTxtDataNascimento.setText("");
         formattedTxtTelefoneResidencial.setText("");
-        
+
         //CombosBox
         cbxEstadoCivil.setSelectedItem("");
         cbxSexo.setSelectedItem("");
@@ -667,6 +761,7 @@ public class GuiInstrutor extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbxEstado;
     private javax.swing.JComboBox<String> cbxEstadoCivil;
     private javax.swing.JComboBox<String> cbxSexo;
+    private javax.swing.JFormattedTextField formattedTxtCelular;
     private javax.swing.JFormattedTextField formattedTxtCep;
     private javax.swing.JFormattedTextField formattedTxtCpf;
     private javax.swing.JFormattedTextField formattedTxtDataNascimento;
@@ -690,7 +785,6 @@ public class GuiInstrutor extends javax.swing.JFrame {
     private javax.swing.JLabel lblTelResidencial;
     private javax.swing.JTextField txtAreaAtuacao;
     private javax.swing.JTextField txtBairro;
-    private javax.swing.JFormattedTextField txtCelular;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;

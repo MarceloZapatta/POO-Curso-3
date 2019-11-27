@@ -97,7 +97,7 @@ public class DaoAluno {
             ps.setInt(15, aluno.getNumero());
             ps.setString(16, aluno.getCPF());
             ps.execute();
-            
+
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
@@ -105,7 +105,7 @@ public class DaoAluno {
     //Consultar
 
     public Aluno consultar(String cpf) {
-        Aluno a = null;
+        Aluno aluno = null;
 
         PreparedStatement ps = null;
         try {
@@ -116,12 +116,26 @@ public class DaoAluno {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next() == true) {
-                a = new Aluno(cpf, rs.getString("CPF_Aluno"));
+                aluno = new Aluno(cpf, rs.getString("Nome_Aluno"));
+                aluno.setBairro(rs.getString("Bairro_Aluno"));
+                aluno.setBairro(rs.getString("CEP_Aluno"));
+                aluno.setCidade(rs.getString("Cidade_Aluno"));
+                aluno.setDataNasc(rs.getString("DataNasc_Aluno"));
+                aluno.setEmail(rs.getString("Email_Aluno"));
+                aluno.setEndereco(rs.getString("Endereco_Aluno"));
+                aluno.setEscolaridade(rs.getString("Escolaridade_Aluno"));
+                aluno.setEstado(rs.getString("Estado_Aluno"));
+                aluno.setEstadoCivil(rs.getString("EstadoCivil_Aluno"));
+                aluno.setRG(rs.getString("RG_Aluno"));
+                aluno.setSexo(rs.getString("Sexo_Aluno"));
+                aluno.setTelefone(rs.getString("Telefone_Aluno"));
+                aluno.setNumero(rs.getInt("Numero_Aluno"));
+
             }
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
-        return (a);
+        return (aluno);
     }
 
     //Excluir

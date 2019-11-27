@@ -34,7 +34,7 @@ public class DaoTurma {
                     + "DataInicio_Turma, "
                     + "DataTermino_Turma, "
                     + "Periodo_Turma, "
-                    + "QtdVagas_Turma,"
+                    + "QtdVagas_Turma, "
                     + "Observacoes_Turma, "
                     + "SiglaCurso_Turma) "
                     + "VALUES (?,?,?,?,?,?, ?)");
@@ -58,12 +58,12 @@ public class DaoTurma {
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("UPDATE TbTurma SET "
-                    + "Descricao_Turma = ?,"
+                    + "Descricao_Turma = ?, "
                     + "DataInicio_Turma = ?, "
                     + "DataTermino_Turma = ?, "
                     + "Periodo_Turma = ?, "
                     + "QtdVagas_Turma = ?, "
-                    + "Observacoes_Turma = ? ,"
+                    + "Observacoes_Turma = ?,"
                     + "SiglaCurso_Turma = ? "
                     + "WHERE siglaC_Turma = ?");
 
@@ -82,7 +82,6 @@ public class DaoTurma {
         }
     }
     //Consultar
-
     public Turma consultar(String sigla) {
         Turma turma = null;
         Curso curso = null;
@@ -113,7 +112,7 @@ public class DaoTurma {
                 turma.setPeriodo(rs.getString("Periodo_Turma"));
                 turma.setQtdVagas(rs.getInt("QtdVagas_Turma"));
                 turma.setObservacoes(rs.getString("Observacoes_Turma"));
-                
+
                 curso = new Curso(rs.getString("Sigla_Curso"), rs.getString("Nome_Curso"));
                 turma.setCurso(curso);
             }

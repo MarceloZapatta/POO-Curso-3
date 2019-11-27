@@ -29,10 +29,10 @@ public class DaoInstrutor {
         try {
             ps = conn.prepareStatement("INSERT INTO TbInstrutor("
                     + "(CPF_Instrutor, Nome_Instrutor, AreaAtuacao_Instrutor, "
-                    + "Bairro_Instrutor, CEP_Instrutor,Cidade_Instrutor, "
-                    + "DataNasc_Instrutor, Email_Instrutor, "
+                    + "Bairro_Instrutor, Celular_Instrutor, CEP_Instrutor, "
+                    + "Cidade_Instrutor, DataNasc_Instrutor, Email_Instrutor, "
                     + "Endereco_Instrutor,Estado_Instrutor, EstadoCivil_Instrutor,"
-                    + "Formacao_Instrutor, RG_Instrutor,"
+                    + "Formacao_Instrutor, RG_Instrutor, "
                     + "Sexo_Instrutor, Telefone_Instrutor, Numero_Instrutor)"
                     + " VALUES "
                     + "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
@@ -66,9 +66,10 @@ public class DaoInstrutor {
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("UPDATE TbInstrutor SET "
-                    + "AreaAtuacao_Instrutor, "
-                    + "Bairro_Instrutor, "
-                    + "CEP_Instrutor, "
+                    + "AreaAtuacao_Instrutor = ?, "
+                    + "Bairro_Instrutor = ?, "
+                    + "Celular_Instrutor = ?, "
+                    + "CEP_Instrutor = ?, "
                     + "Cidade_Instrutor = ?, "
                     + "DataNasc_Instrutor = ?, "
                     + "Email_Instrutor = ?, "
@@ -124,6 +125,7 @@ public class DaoInstrutor {
                 instrutor = new Instrutor(cpf, rs.getString("CPF_Instrutor"));
                 instrutor.setAreaAtuacao(rs.getString("AreaAtuacao_Instrutor"));
                 instrutor.setBairro(rs.getString("Bairro_Instrutor"));
+                instrutor.setCelular(rs.getString("Celular_Instrutor"));
                 instrutor.setCEP(rs.getString("CEP_Instrutor"));
                 instrutor.setCidade(rs.getString("Cidade_Instrutor"));
                 instrutor.setDataNasc(rs.getString("DataNasc_Instrutor"));
