@@ -13,9 +13,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Lucas
- *         Marcelo
- *         Savini
+ * @author Lucas Marcelo Savini
  */
 public class GuiInstrutor extends javax.swing.JFrame {
 
@@ -482,7 +480,6 @@ public class GuiInstrutor extends javax.swing.JFrame {
         txtNome.setEnabled(false);
         txtNumero.setEnabled(false);
         txtRg.setEnabled(false);
-
         //Botões
         btnConsultar.setEnabled(true);
         btnInserir.setEnabled(false);
@@ -519,7 +516,6 @@ public class GuiInstrutor extends javax.swing.JFrame {
             txtNome.setEnabled(false);
             txtNumero.setEnabled(false);
             txtRg.setEnabled(false);
-
             //Botões
             btnConsultar.setEnabled(true);
             btnInserir.setEnabled(false);
@@ -638,7 +634,6 @@ public class GuiInstrutor extends javax.swing.JFrame {
         for (String sexo : sexos) {
             cbxSexo.addItem(sexo);
         }
-
         ////Populando Combo box estados
         String[] estados = new String[26];
         estados[0] = "AC";
@@ -731,9 +726,9 @@ public class GuiInstrutor extends javax.swing.JFrame {
     }
 
     public void limparCampos() {
+        //Txts
         txtAreaAtuacao.setText("");
         txtBairro.setText("");
-        formattedTxtCelular.setText("");
         txtCidade.setText("");
         txtEmail.setText("");
         txtEndereco.setText("");
@@ -741,13 +736,12 @@ public class GuiInstrutor extends javax.swing.JFrame {
         txtNome.setText("");
         txtNumero.setText("");
         txtRg.setText("");
-
         //Formatted Txts
+        formattedTxtCelular.setText("");
         formattedTxtCpf.setText("");
         formattedTxtCep.setText("");
         formattedTxtDataNascimento.setText("");
         formattedTxtTelefoneResidencial.setText("");
-
         //CombosBox
         cbxEstadoCivil.setSelectedItem("");
         cbxSexo.setSelectedItem("");
