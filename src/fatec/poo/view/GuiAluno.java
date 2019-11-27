@@ -14,9 +14,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Lucas
- *         Marcelo
- *         Savini
+ * @author Lucas Marcelo Savini
  */
 public class GuiAluno extends javax.swing.JFrame {
 
@@ -365,19 +363,24 @@ public class GuiAluno extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * ********************************** SAIR *********************************
+     */
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_btnSairActionPerformed
-
+    /**
+     * **************************** WINDOW OPENED ******************************
+     */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        //Conexão
         conexao = new Conexao("BD1813031", "BD1813031");
         conexao.setDriver("oracle.jdbc.driver.OracleDriver");
         conexao.setConnectionString("jdbc:oracle:thin:@apolo:1521:xe");
         daoAluno = new DaoAluno(conexao.conectar());
 
-        //Sexo
+        //Populando cbxSexo
         String[] sexos = new String[3];
         sexos[0] = "M";
         sexos[1] = "F";
@@ -386,7 +389,7 @@ public class GuiAluno extends javax.swing.JFrame {
         for (String sexo : sexos) {
             cbxSexo.addItem(sexo);
         }
-
+        //Populando cbxEstados
         String[] estados = new String[26];
         estados[0] = "AC";
         estados[1] = "AL";
@@ -420,6 +423,7 @@ public class GuiAluno extends javax.swing.JFrame {
             cbxEstado.addItem(estado);
         }
 
+        //Populando cbxEstado Civil
         String[] estadoCivil = new String[5];
         estadoCivil[0] = "Solteiro";
         estadoCivil[1] = "Casado";
@@ -431,6 +435,7 @@ public class GuiAluno extends javax.swing.JFrame {
             cbxEstadoCivil.addItem(civil);
         }
 
+        //Populando cbxEscolaridade
         String[] escolaridades = new String[7];
         escolaridades[0] = "Ensino Fundamental Incompleto";
         escolaridades[1] = "Ensino Fundamental Completo";
@@ -438,13 +443,15 @@ public class GuiAluno extends javax.swing.JFrame {
         escolaridades[3] = "Ensino Médio Completo";
         escolaridades[4] = "Ensino Superior Incompleto";
         escolaridades[5] = "Ensino Superior Completo";
-        
+
         for (String escolaridade : escolaridades) {
             cbxEscolaridade.addItem(escolaridade);
         }
 
     }//GEN-LAST:event_formWindowOpened
-
+    /**
+     * ******************************* EXCLUIR * *******************************
+     */
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if (JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0) {
             daoAluno.excluir(aluno);
@@ -458,55 +465,58 @@ public class GuiAluno extends javax.swing.JFrame {
             cbxEstadoCivil.setEnabled(false);                                   //Estado Civil
             cbxSexo.setEnabled(false);                                          //Sexo
             //Formatted
+            formattedTxtCelular.setEnabled(false);                              //Celular
             formattedTxtCpf.setEnabled(true);                                   //CPF
             formattedTxtDataNascimento.setEnabled(true);                        //Data Nasc
+            formattedTxtTelefoneResidencial.setEnabled(false);                  //Tel Residencial
             //Txts
             txtNome.setEnabled(false);                                          //Nome
             txtBairro.setEnabled(false);                                        //Bairro
-            formattedTxtCelular.setEnabled(false);                              //Celular
             txtCep.setEnabled(false);                                           //CEP
             txtCidade.setEnabled(false);                                        //Cidade
             txtEmail.setEnabled(false);                                         //Email
             txtEndereco.setEnabled(false);                                      //Endereço
             txtNumero.setEnabled(false);                                        //Número
             txtRg.setEnabled(false);
-            formattedTxtTelefoneResidencial.setEnabled(false);
 
             //Botões
-            btnConsultar.setEnabled(true);
-            btnInserir.setEnabled(false);
-            btnAlterar.setEnabled(false);
-            btnExcluir.setEnabled(false);
+            btnConsultar.setEnabled(true);                                      //COnsultar
+            btnInserir.setEnabled(false);                                       //Inserir
+            btnAlterar.setEnabled(false);                                       //Alterar
+            btnExcluir.setEnabled(false);                                       //Excluir
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
-
+    /**
+     * ******************************* Inserir *********************************
+     */
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         //Obtendo dados
         String cpf;
         cpf = formattedTxtCpf.getText();
 
+        //Validando CPF
         if (validaCPF(cpf) == false) {
             JOptionPane.showMessageDialog(null, "CPF Inválido! Por favor digite"
                     + "um CPF válido! ");
             formattedTxtCpf.setText("");
             btnConsultar.setEnabled(true);
         } else {
-            aluno = new Aluno(formattedTxtCpf.getText(),
-                    txtNome.getText());
-            aluno.setBairro(txtBairro.getText());
-            aluno.setCEP(txtCep.getText());
-            aluno.setCelular(formattedTxtCelular.getText());
-            aluno.setCidade(txtCidade.getText());
-            aluno.setDataNasc(formattedTxtDataNascimento.getText());
-            aluno.setEmail(txtEmail.getText());
-            aluno.setEndereco(txtEndereco.getText());
-            aluno.setEscolaridade(cbxEscolaridade.getSelectedItem().toString());
-            aluno.setEstado(cbxEstado.getSelectedItem().toString());
-            aluno.setEstadoCivil(cbxEstadoCivil.getSelectedItem().toString());
-            aluno.setNumero(Integer.parseInt(txtNumero.getText()));
-            aluno.setRG(txtRg.getText());
-            aluno.setSexo(cbxSexo.getSelectedItem().toString());
-            aluno.setTelefone(formattedTxtTelefoneResidencial.getText());
+            aluno = new Aluno(formattedTxtCpf.getText(),                        //1  - CPF
+                    txtNome.getText());                                         //2  - Nome
+            aluno.setBairro(txtBairro.getText());                               //3  - Bairro
+            aluno.setCEP(txtCep.getText());                                     //4  - CEP
+            aluno.setCelular(formattedTxtCelular.getText());                    //5  - Celular
+            aluno.setCidade(txtCidade.getText());                               //6  - Cidade
+            aluno.setDataNasc(formattedTxtDataNascimento.getText());            //7  - Data Nasc
+            aluno.setEmail(txtEmail.getText());                                 //8  - Email
+            aluno.setEndereco(txtEndereco.getText());                           //9  - Endereço
+            aluno.setEscolaridade(cbxEscolaridade.getSelectedItem().toString());//10 - Escolaridade
+            aluno.setEstado(cbxEstado.getSelectedItem().toString());            //11 - Estado
+            aluno.setEstadoCivil(cbxEstadoCivil.getSelectedItem().toString());  //12 - Estado Civil
+            aluno.setNumero(Integer.parseInt(txtNumero.getText()));             //13 - Numero
+            aluno.setRG(txtRg.getText());                                       //14 - RG
+            aluno.setSexo(cbxSexo.getSelectedItem().toString());                //15 - Sexo
+            aluno.setTelefone(formattedTxtTelefoneResidencial.getText());       //16 - Telefone
             daoAluno.inserir(aluno);
 
             // Limpando os campos
@@ -537,7 +547,11 @@ public class GuiAluno extends javax.swing.JFrame {
             btnExcluir.setEnabled(false);
         }
     }//GEN-LAST:event_btnInserirActionPerformed
-
+   
+    /**
+     * ******************************* ALTERAR  ********************************
+     */
+    
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0) {//Sim
             // Obtendo alterações
@@ -590,7 +604,9 @@ public class GuiAluno extends javax.swing.JFrame {
         btnExcluir.setEnabled(false);
 
     }//GEN-LAST:event_btnAlterarActionPerformed
-
+    /**
+     * ******************************* CONSULTAR *******************************
+     */
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         aluno = null;
         String cpf = formattedTxtCpf.getText();
@@ -641,7 +657,7 @@ public class GuiAluno extends javax.swing.JFrame {
                 cbxEstado.setSelectedItem(aluno.getEstado());                   //Estado
                 cbxSexo.setSelectedItem(aluno.getSexo());                       //Sexo
                 cbxEstadoCivil.setSelectedItem(aluno.getEstadoCivil());
-                
+
                 //Formatteds(Sem CPF)
                 formattedTxtCelular.setText(aluno.getCelular());                //Celular
                 formattedTxtDataNascimento.setText(aluno.getDataNasc());        //Data Nasc
@@ -683,10 +699,10 @@ public class GuiAluno extends javax.swing.JFrame {
                 txtNome.requestFocus();
 
                 //Botões
-                btnConsultar.setEnabled(false);
-                btnInserir.setEnabled(false);
-                btnAlterar.setEnabled(true);
-                btnExcluir.setEnabled(true);
+                btnConsultar.setEnabled(false);                                 //Consultar
+                btnInserir.setEnabled(false);                                   //Inserir
+                btnAlterar.setEnabled(true);                                    //Alterar
+                btnExcluir.setEnabled(true);                                    //Excluir
             }
         }
     }//GEN-LAST:event_btnConsultarActionPerformed
@@ -725,27 +741,32 @@ public class GuiAluno extends javax.swing.JFrame {
             }
         });
     }
-
+    /**
+     * *************************** LIMPAR CAMPOS *******************************
+     */
     public void limparCampos() {
-        formattedTxtCpf.setText("");
-        txtNome.setText("");
-        formattedTxtCpf.requestFocus();
-        txtBairro.setText("");
-        formattedTxtCelular.setText("");
-        txtCep.setText("");
-        txtCidade.setText("");
-        txtEmail.setText("");
-        txtEndereco.setText("");
-        txtNumero.setText("");
-        txtRg.setText("");
-        formattedTxtTelefoneResidencial.setText("");
-        formattedTxtDataNascimento.setText("");
 
         // Deselecionando combobox
         cbxEscolaridade.setSelectedIndex(-1);
         cbxEstadoCivil.setSelectedIndex(-1);
         cbxSexo.setSelectedIndex(-1);
         cbxEstado.setSelectedIndex(-1);
+        //Formatted Txts
+        formattedTxtCpf.setText("");
+        formattedTxtCpf.requestFocus();
+        formattedTxtCelular.setText("");
+        formattedTxtTelefoneResidencial.setText("");
+        formattedTxtDataNascimento.setText("");
+        //Txts
+        txtNome.setText("");
+        txtBairro.setText("");
+        txtCep.setText("");
+        txtCidade.setText("");
+        txtEmail.setText("");
+        txtEndereco.setText("");
+        txtNumero.setText("");
+        txtRg.setText("");
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -384,9 +384,12 @@ public class GuiInstrutor extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnSairActionPerformed
 
+     /**
+     * ******************************* Inserir *********************************
+     */
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         //Obtendo dados
-        instrutor = new Instrutor(formattedTxtCpf.getText(), //CPF
+        instrutor = new Instrutor(formattedTxtCpf.getText(),                //CPF
                 txtNome.getText());                                         //Nome
         txtAreaAtuacao.setText(instrutor.getAreaAtuacao());                 //Area Atuaçção
         txtBairro.setText(instrutor.getBairro());                           //Bairro
@@ -398,6 +401,7 @@ public class GuiInstrutor extends javax.swing.JFrame {
         txtEndereco.setText(instrutor.getEndereco());                       //Endereço
         cbxEstado.setSelectedItem(instrutor.getEstado());                   //Estado
         cbxEstadoCivil.setSelectedItem(instrutor.getEstadoCivil());         //Estado Civil
+        txtFormacao.setText(instrutor.getFormacao());                       //Formação
         txtNumero.setText(String.valueOf(instrutor.getNumero()));           //Numero 
         txtRg.setText(instrutor.getRG());                                   //RG
         cbxSexo.setSelectedItem(instrutor.getSexo());                       //Sexo
@@ -411,7 +415,7 @@ public class GuiInstrutor extends javax.swing.JFrame {
         // Foco
         formattedTxtCpf.requestFocus();
 
-        // Habilitando componentes
+        //Desabilitando componentes
         txtBairro.setEnabled(false);
         formattedTxtCelular.setEnabled(false);
         formattedTxtCep.setEnabled(false);
@@ -437,6 +441,9 @@ public class GuiInstrutor extends javax.swing.JFrame {
         btnExcluir.setEnabled(false);
     }//GEN-LAST:event_btnInserirActionPerformed
 
+     /**
+     * ******************************* ALTERAR  ********************************
+     */
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         if (JOptionPane.showConfirmDialog(null, "Confirma Alteração?") == 0) {//Sim
             //Obtendo alterações
@@ -465,7 +472,7 @@ public class GuiInstrutor extends javax.swing.JFrame {
         // Foco
         formattedTxtCpf.requestFocus();
 
-        // Habilitando componentes
+        //Desabilitando componentes
         //CombosBox
         cbxEstado.setEnabled(false);
         cbxEstadoCivil.setEnabled(false);
@@ -489,7 +496,9 @@ public class GuiInstrutor extends javax.swing.JFrame {
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
     }//GEN-LAST:event_btnAlterarActionPerformed
-
+    /**
+     * ******************************* EXCLUIR * *******************************
+     */
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if (JOptionPane.showConfirmDialog(null, "Confirma Exclusão?") == 0) {
             daoInstrutor.excluir(instrutor);
@@ -500,7 +509,7 @@ public class GuiInstrutor extends javax.swing.JFrame {
             // Foco
             formattedTxtCpf.requestFocus();
 
-            // Habilitando componentes
+            //Desabilitando componentes
             //CombosBox
             cbxEstado.setEnabled(false);
             cbxEstadoCivil.setEnabled(false);
@@ -526,7 +535,9 @@ public class GuiInstrutor extends javax.swing.JFrame {
             btnExcluir.setEnabled(false);
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
-
+    /**
+     * ******************************* CONSULTAR *******************************
+     */
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         instrutor = null;
 
@@ -584,6 +595,7 @@ public class GuiInstrutor extends javax.swing.JFrame {
                 cbxEstado.setSelectedItem(instrutor.getEstado());                   //Estado
                 cbxEstadoCivil.setSelectedItem(instrutor.getEstadoCivil());         //Estado Civil
                 txtFormacao.setText(instrutor.getFormacao());                       //Formação
+                txtNome.setText(instrutor.getNome());                               //Nome
                 txtNumero.setText(String.valueOf(instrutor.getNumero()));           //Numero 
                 txtRg.setText(instrutor.getRG());                                   //RG
                 cbxSexo.setSelectedItem(instrutor.getSexo());                       //Sexo
@@ -619,7 +631,9 @@ public class GuiInstrutor extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnConsultarActionPerformed
-
+    /**
+     * **************************** WINDOW OPENED ******************************
+     */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         // TODO add your handling code here:

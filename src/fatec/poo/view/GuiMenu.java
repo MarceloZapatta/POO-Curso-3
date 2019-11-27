@@ -7,9 +7,7 @@ package fatec.poo.view;
 
 /**
  *
- * @author Lucas
- *         Marcelo
- *         Savini
+ * @author Lucas Marcelo Savini
  */
 public class GuiMenu extends javax.swing.JFrame {
 
@@ -102,6 +100,11 @@ public class GuiMenu extends javax.swing.JFrame {
 
         menuAlocarInstrutor.setMnemonic('l');
         menuAlocarInstrutor.setText("Alocar instrutor");
+        menuAlocarInstrutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAlocarInstrutorActionPerformed(evt);
+            }
+        });
         menuOperacoes.add(menuAlocarInstrutor);
 
         menuEfetuarMatricula.setMnemonic('e');
@@ -149,6 +152,12 @@ public class GuiMenu extends javax.swing.JFrame {
     private void menuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSairActionPerformed
         System.exit(0);
     }//GEN-LAST:event_menuSairActionPerformed
+
+    private void menuAlocarInstrutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlocarInstrutorActionPerformed
+        // TODO add your handling code here:
+        GuiAlocarInstrutor guiAlocarInstrutor = new GuiAlocarInstrutor();
+        guiAlocarInstrutor.setVisible(true);
+    }//GEN-LAST:event_menuAlocarInstrutorActionPerformed
 
     /**
      * @param args the command line arguments

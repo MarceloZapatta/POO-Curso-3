@@ -315,7 +315,7 @@ public class GuiTurma extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        turma = new Turma(txtSiglaTurma.getText(), //Sigla Turma
+        turma = new Turma(txtSiglaTurma.getText(),                              //Sigla Turma
                 txtNome.getText());                                             //Nome
         turma.setDataInicio(formattedDataInicio.getText());                     //Data Inicio
         turma.setDataTermino(formattedDataTermino.getText());                   //Data Termino

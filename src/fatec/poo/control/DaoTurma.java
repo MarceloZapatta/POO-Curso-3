@@ -25,29 +25,33 @@ public class DaoTurma {
     public DaoTurma(Connection conn) {
         this.conn = conn;
     }
+    //************ Observação: Precisa verificar a ordem das Siglas em todos os métodos
 
-    //Inserir
+    /**
+     * ************************** INSERIR **************************
+     */
     public void inserir(Turma turma) {
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("INSERT INTO TbTurma"
-                    + "(SiglaC_Turma, "
-                    + "Descricao_Turma, "
-                    + "DataInicio_Turma, "
-                    + "DataTermino_Turma, "
-                    + "Periodo_Turma, "
-                    + "QtdVagas_Turma, "
-                    + "Observacoes_Turma, "
-                    + "SiglaCurso_Turma) "
-                    + "VALUES (?,?,?,?,?,?, ?)");
-            ps.setString(1, turma.getSiglaTurma());
-            ps.setString(2, turma.getDescricao());
-            ps.setString(3, turma.getDataInicio());
-            ps.setString(4, turma.getDataTermino());
-            ps.setString(5, turma.getPeriodo());
-            ps.setInt(6, turma.getQtdVagas());
-            ps.setString(7, turma.getObservacoes());
-            ps.setString(8, turma.getCurso().getSigla());
+                    + " (SiglaC_Turma,"                                         //1 - SiglaCTurma
+                    + " Descricao_Turma,"                                       //2 - Descrição
+                    + " DataInicio_Turma,"                                      //3 - Data Inicio
+                    + " DataTermino_Turma,"                                     //4 - Data Término
+                    + " Periodo_Turma,"                                         //5 - Periodo
+                    + " QtdVagas_Turma,"                                        //6 - Qtd Vagas
+                    + " Observacoes_Turma,"                                     //7 - Observações
+                    + " SiglaCurso_Turma)"                                      //8 - SiglaCurso
+                    + " VALUES"
+                    + " (?,?,?,?,?,?,?)");
+            ps.setString(1, turma.getSiglaTurma());                             //1 - SiglaCTurma
+            ps.setString(2, turma.getDescricao());                              //2 - Descrição
+            ps.setString(3, turma.getDataInicio());                             //3 - Data Inicio
+            ps.setString(4, turma.getDataTermino());                            //4 - Data Término
+            ps.setString(5, turma.getPeriodo());                                //5 - Periodo
+            ps.setInt(6, turma.getQtdVagas());                                  //6 - Qtd Vagas
+            ps.setString(7, turma.getObservacoes());                            //7 - Observações
+            ps.setString(8, turma.getCurso().getSigla());                       //8 - SiglaCurso
 
             ps.execute();
         } catch (SQLException ex) {
@@ -55,67 +59,72 @@ public class DaoTurma {
         }
     }
 
-    //Alterar
+    /**
+     * ************************** ALTERAR **************************
+     */
     public void alterar(Turma turma) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("UPDATE TbTurma SET "
-                    + "Descricao_Turma = ?, "
-                    + "DataInicio_Turma = ?, "
-                    + "DataTermino_Turma = ?, "
-                    + "Periodo_Turma = ?, "
-                    + "QtdVagas_Turma = ?, "
-                    + "Observacoes_Turma = ?,"
-                    + "SiglaCurso_Turma = ? "
-                    + "WHERE siglaC_Turma = ?");
+            ps = conn.prepareStatement("UPDATE TbTurma SET"
+                    + " Descricao_Turma = ?,"                                   //1 - Descrição
+                    + " DataInicio_Turma = ?,"                                  //2 - Data Inicio
+                    + " DataTermino_Turma = ?,"                                 //3 - Data Término
+                    + " Periodo_Turma = ?,"                                     //4 - Periodo
+                    + " QtdVagas_Turma = ?,"                                    //5 - Qtd Vagas
+                    + " Observacoes_Turma = ?,"                                 //6 - Observações
+                    + " SiglaCurso_Turma = ?"                                   //7 - SiglaCurso                            
+                    + " WHERE"                                                  //WHERE
+                    + " SiglaC_Turma = ?");                                     //8 - SiglaCTurma
 
-            ps.setString(1, turma.getDescricao());
-            ps.setString(2, turma.getDataInicio());
-            ps.setString(3, turma.getDataTermino());
-            ps.setString(4, turma.getPeriodo());
-            ps.setInt(5, turma.getQtdVagas());
-            ps.setString(6, turma.getSiglaTurma());
-            ps.setString(7, turma.getObservacoes());
-            ps.setString(8, turma.getCurso().getSigla());
+            ps.setString(1, turma.getDescricao());                              //1 - Descrição
+            ps.setString(2, turma.getDataInicio());                             //2 - Data Inicio
+            ps.setString(3, turma.getDataTermino());                            //3 - Data Término
+            ps.setString(4, turma.getPeriodo());                                //4 - Periodo
+            ps.setInt(5, turma.getQtdVagas());                                  //5 - Qtd Vagas
+            ps.setString(6, turma.getObservacoes());                            //6 - Observações
+            ps.setString(7, turma.getSiglaTurma());                             //7 - SiglaCurso
+            ps.setString(8, turma.getCurso().getSigla());                       //SiglaCTurma
 
             ps.execute();
         } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
     }
-    //Consultar
+    /**
+     * ************************** CONSULTAR **************************
+     */
     public Turma consultar(String sigla) {
         Turma turma = null;
         Curso curso = null;
 
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("SELECT SiglaC_Turma, "
-                    + "Descricao_Turma, "
-                    + "DataInicio_Turma, "
-                    + "DataTermino_Turma, "
-                    + "Periodo_Turma, "
-                    + "QtdVagas_Turma, "
-                    + "Observacoes_Turma, "
-                    + "Sigla_Curso "
-                    + "FROM TbTurma INNER JOIN TbCurso "
-                    + "WHERE "
-                    + "SiglaC_Turma = ? AND "
-                    + "SiglaCurso_Turma = Sigla_Curso");
+            ps = conn.prepareStatement("SELECT SiglaC_Turma,"                   //1 - SiglaCTurma
+                    + " Descricao_Turma,"                                       //2 -Descricao 
+                    + " DataInicio_Turma,"                                      //3 - Data Inicio
+                    + " DataTermino_Turma,"                                     //4 - Data Termino
+                    + " Periodo_Turma,"                                         //5 - Periodo
+                    + " QtdVagas_Turma,"                                        //6 - Qtde Vagas
+                    + " Observacoes_Turma,"                                     //7 - Observações
+                    + " Sigla_Curso"                                            //8 - Sigla Curso
+                    + " FROM TbTurma INNER JOIN TbCurso"
+                    + " WHERE"
+                    + " SiglaC_Turma = ? AND"
+                    + " SiglaCurso_Turma = Sigla_Curso");
 
             ps.setString(1, sigla);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next() == true) {
-                turma = new Turma(sigla, rs.getString("Descricao_Turma"));
-                turma.setDescricao(rs.getString("Descricao_Turma"));
-                turma.setDataInicio(rs.getString("DataInicio_Turma"));
-                turma.setDataTermino(rs.getString("DataTermino_Turma"));
-                turma.setPeriodo(rs.getString("Periodo_Turma"));
-                turma.setQtdVagas(rs.getInt("QtdVagas_Turma"));
-                turma.setObservacoes(rs.getString("Observacoes_Turma"));
+                turma = new Turma(sigla, rs.getString("Descricao_Turma"));      //1 - Descrição
+                turma.setDataInicio(rs.getString("DataInicio_Turma"));          //2 - Data Inicio
+                turma.setDataTermino(rs.getString("DataTermino_Turma"));        //3 - Data Término
+                turma.setPeriodo(rs.getString("Periodo_Turma"));                //4 - Periodo
+                turma.setQtdVagas(rs.getInt("QtdVagas_Turma"));                 //5 - Qtde Vagas
+                turma.setObservacoes(rs.getString("Observacoes_Turma"));        //6 - Observações
 
-                curso = new Curso(rs.getString("Sigla_Curso"), rs.getString("Nome_Curso"));
+                curso = new Curso(rs.getString("Sigla_Curso"),                  //7 -  Sigla Curso
+                        rs.getString("Nome_Curso"));                            //8 -  Nome Curso
                 turma.setCurso(curso);
             }
         } catch (SQLException ex) {
@@ -124,7 +133,9 @@ public class DaoTurma {
         return turma;
     }
 
-    //Excluir
+    /**
+     * ************************** EXCLUIR **************************
+     */
     public void excluir(Turma turma) {
         PreparedStatement ps = null;
         try {
