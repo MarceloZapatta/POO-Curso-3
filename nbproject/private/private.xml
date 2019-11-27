@@ -2,6 +2,20 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/notebook/Desktop/POO-Curso-3/src/fatec/poo/model/Matricula.java</file>
+            <file>file:/C:/Users/notebook/Desktop/POO-Curso-3/src/fatec/poo/control/DaoCurso.java</file>
+            <file>file:/C:/Users/notebook/Desktop/POO-Curso-3/src/fatec/poo/view/GuiInstrutor.java</file>
+            <file>file:/C:/Users/notebook/Desktop/POO-Curso-3/src/fatec/poo/view/GuiTurma.java</file>
+            <file>file:/C:/Users/notebook/Desktop/POO-Curso-3/src/fatec/poo/control/DaoTurma.java</file>
+            <file>file:/C:/Users/notebook/Desktop/POO-Curso-3/src/fatec/poo/view/GuiCurso.java</file>
+            <file>file:/C:/Users/notebook/Desktop/POO-Curso-3/.git/config</file>
+            <file>file:/C:/Users/notebook/Desktop/POO-Curso-3/src/fatec/poo/view/GuiAluno.java</file>
+            <file>file:/C:/Users/notebook/Desktop/POO-Curso-3/src/fatec/poo/control/DaoAluno.java</file>
+            <file>file:/C:/Users/notebook/Desktop/POO-Curso-3/src/fatec/poo/view/GuiMenu.java</file>
+            <file>file:/C:/Users/notebook/Desktop/POO-Curso-3/src/fatec/poo/view/GuiAlocarInstrutor.java</file>
+            <file>file:/C:/Users/notebook/Desktop/POO-Curso-3/src/fatec/poo/control/DaoInstrutor.java</file>
+            <file>file:/C:/Users/notebook/Desktop/POO-Curso-3/src/fatec/poo/model/APrazo.java</file>
+        </group>
     </open-files>
 </project-private>
