@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -49,8 +51,8 @@ public class DaoInstrutor {
                     + " Telefone_Instrutor,"                                    //16 - Telefone
                     + " Numero_Instrutor)"                                      //17 - Numero
                     + " VALUES"
-                    + " (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-                       //1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8
+                    + " (?,?,?,?,?,?,?,?,?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                       //1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17
 
             //Prepared Statement Sets
             ps.setString(1, instrutor.getCPF());                                //1  - CPF                         
@@ -74,6 +76,7 @@ public class DaoInstrutor {
 
         } catch (SQLException ex) {
             System.out.println(ex.toString());
+            JOptionPane.showMessageDialog(null, "Erro ao tentar inserir o instrutor:\n" + ex.toString(), "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }
 
