@@ -129,6 +129,7 @@ public class DaoInstrutor {
 
         } catch (SQLException ex) {
             System.out.println(ex.toString());
+            JOptionPane.showMessageDialog(null, "Erro ao tentar inserir o instrutor:\n" + ex.toString(), "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -186,6 +187,7 @@ public class DaoInstrutor {
             ps.execute();
         } catch (SQLException ex) {
             System.out.println(ex.toString());
+            JOptionPane.showMessageDialog(null, "Erro ao tentar inserir o instrutor:\n" + ex.toString(), "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

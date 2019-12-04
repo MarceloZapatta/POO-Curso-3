@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -52,6 +53,7 @@ public class DaoCurso {
             ps.execute();
         } catch (SQLException ex) {
             System.out.println(ex.toString());
+            JOptionPane.showMessageDialog(null, "Erro ao tentar inserir o instrutor:\n" + ex.toString(), "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -82,6 +84,7 @@ public class DaoCurso {
 
         } catch (SQLException ex) {
             System.out.println(ex.toString());
+            JOptionPane.showMessageDialog(null, "Erro ao tentar inserir o instrutor:\n" + ex.toString(), "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -109,6 +112,7 @@ public class DaoCurso {
             }
         } catch (SQLException ex) {
             System.out.println(ex.toString());
+            JOptionPane.showMessageDialog(null, "Erro ao tentar inserir o instrutor:\n" + ex.toString(), "Erro!", JOptionPane.ERROR_MESSAGE);
         }
         return (curso);
     }
@@ -133,7 +137,7 @@ public class DaoCurso {
      * ************************** Listar Siglas **************************
      */
     //Falta Terminar
-    public ArrayList<String> listarSiglasCursos() {
+    public ArrayList listarSiglasCursos() {
         ArrayList<String> siglasCurso = new ArrayList<String>();
         PreparedStatement ps = null;
 
@@ -147,6 +151,7 @@ public class DaoCurso {
             }
         } catch (SQLException ex) {
             System.out.println(ex.toString());
+            JOptionPane.showMessageDialog(null, "Erro ao tentar inserir o instrutor:\n" + ex.toString(), "Erro!", JOptionPane.ERROR_MESSAGE);
         }
         return siglasCurso;
     }

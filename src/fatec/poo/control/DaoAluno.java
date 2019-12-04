@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -68,6 +69,7 @@ public class DaoAluno {
             ps.execute();
         } catch (SQLException ex) {
             System.out.println(ex.toString());
+            JOptionPane.showMessageDialog(null, "Erro ao tentar inserir o instrutor:\n" + ex.toString(), "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }
     /**************************** ALTERAR ***************************/
@@ -113,6 +115,7 @@ public class DaoAluno {
 
         } catch (SQLException ex) {
             System.out.println(ex.toString());
+            JOptionPane.showMessageDialog(null, "Erro ao tentar inserir o instrutor:\n" + ex.toString(), "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }
     /**************************** CONSULTAR ***************************/
@@ -162,6 +165,7 @@ public class DaoAluno {
             ps.execute();
         } catch (SQLException ex) {
             System.out.println(ex.toString());
+            JOptionPane.showMessageDialog(null, "Erro ao tentar inserir o instrutor:\n" + ex.toString(), "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
