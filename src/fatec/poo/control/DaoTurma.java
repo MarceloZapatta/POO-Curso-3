@@ -35,7 +35,7 @@ public class DaoTurma {
         PreparedStatement ps = null;
         try {
             ps = conn.prepareStatement("INSERT INTO TbTurma"
-                    + " (Sigla_Turma,"                                         //1 - SiglaCTurma
+                    + " (Sigla_Turma,"                                          //1 - SiglaTurma
                     + " Descricao_Turma,"                                       //2 - Descrição
                     + " DataInicio_Turma,"                                      //3 - Data Inicio
                     + " DataTermino_Turma,"                                     //4 - Data Término
@@ -84,13 +84,13 @@ public class DaoTurma {
             ps.setString(4, turma.getPeriodo());                                //4 - Periodo
             ps.setInt(5, turma.getQtdVagas());                                  //5 - Qtd Vagas
             ps.setString(6, turma.getObservacoes());                            //6 - Observações
-            ps.setString(7, turma.getSiglaTurma());                             //7 - SiglaCurso
-            ps.setString(8, turma.getCurso().getSigla());                       //SiglaCTurma
+            ps.setString(7, turma.getCurso().getSigla());                             //7 - SiglaCurso
+            ps.setString(8, turma.getSiglaTurma());                       //SiglaCTurma
 
             ps.execute();
         } catch (SQLException ex) {
             System.out.println(ex.toString());
-            JOptionPane.showMessageDialog(null, "Erro ao consultar a turma:\n" + ex.toString(), "Erro!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao alterar a turma:\n" + ex.toString(), "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }
     /**
@@ -114,20 +114,19 @@ public class DaoTurma {
                     + " FROM TbTurma t INNER JOIN TbCurso c "
                     + " ON t.SiglaCurso_Turma = c.Sigla_Curso"
                     + " WHERE"
-                    + " t.SiglaCurso_Turma = ?");
+                    + " t.Sigla_Turma = ?");
 
             ps.setString(1, sigla);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next() == true) {
-                turma = new Turma(rs.getString("Sigla_Turma"), 
+                turma = new Turma(sigla, 
                         rs.getString("Descricao_Turma"));      
                 turma.setDataInicio(rs.getString("DataInicio_Turma"));          //2 - Data Inicio
                 turma.setDataTermino(rs.getString("DataTermino_Turma"));        //3 - Data Término
                 turma.setPeriodo(rs.getString("Periodo_Turma"));                //4 - Periodo
                 turma.setQtdVagas(rs.getInt("QtdVagas_Turma"));                 //5 - Qtde Vagas
                 turma.setObservacoes(rs.getString("Observacoes_Turma"));        //6 - Observações
-
                 curso = new Curso(rs.getString("SiglaCurso_Turma"),                  //7 -  Sigla Curso
                         rs.getString("Nome_Curso"));                            //8 -  Nome Curso
                 turma.setCurso(curso);

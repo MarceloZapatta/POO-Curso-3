@@ -257,21 +257,6 @@ public class GuiTurma extends javax.swing.JFrame {
         turma = daoTurma.consultar(txtSiglaTurma.getText());
 
         if (turma == null) {
-            // Habilita o campos para criação
-            //Cbxs
-            cbxCurso.setEnabled(true);
-            cbxPeriodo.setEnabled(true);
-            //Formatted
-            formattedDataInicio.setEnabled(true);
-            formattedDataTermino.setEnabled(true);
-            //Txts
-            txtSiglaTurma.setEnabled(false);
-            txtNome.setEnabled(true);
-            txtQuantidadeVagas.setEnabled(true);
-
-            //Foco
-            txtNome.requestFocus();
-
             //Botões
             btnConsultar.setEnabled(false);
             btnInserir.setEnabled(true);
@@ -286,32 +271,24 @@ public class GuiTurma extends javax.swing.JFrame {
             formattedDataInicio.setText(turma.getDataInicio());
             formattedDataTermino.setText(turma.getDataTermino());
             //Txts
+            txtSiglaTurma.setText(turma.getSiglaTurma());
             txtNome.setText(turma.getDescricao());
             txtQuantidadeVagas.setText(String.valueOf(turma.getQtdVagas()));
 
             // Limpar campos
             this.limparCampos();
-
-            /*Habilitando campos
-            - Combos */
-            cbxCurso.setEnabled(true);
-            cbxPeriodo.setEnabled(true);
-            //FormattedTxt
-            formattedDataInicio.setEnabled(true);
-            formattedDataTermino.setEnabled(true);
-            //Txts
-            txtNome.setEnabled(false);
-            txtQuantidadeVagas.setEnabled(true);
-            txtSiglaTurma.setEnabled(true);
+            
             //Botões
             btnConsultar.setEnabled(false);
             btnInserir.setEnabled(false);
             btnAlterar.setEnabled(true);
             btnExcluir.setEnabled(true);
-
-            //Foco
-            txtNome.requestFocus();
         }
+        
+        this.habilitarCampos(true);
+        
+        //Foco
+        txtNome.requestFocus();
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
@@ -331,20 +308,12 @@ public class GuiTurma extends javax.swing.JFrame {
         // Limpar campos
         this.limparCampos();
 
+        // Desabilitando campos
+        this.habilitarCampos(false);
+        
         //Foco
         txtSiglaTurma.requestFocus();
-
-        /*Desabilitando componentes
-        - Combos */
-        cbxCurso.setEnabled(false);
-        cbxPeriodo.setEnabled(false);
-        //FormattedTxt
-        formattedDataInicio.setEnabled(false);
-        formattedDataTermino.setEnabled(false);
-        //Txts
-        txtNome.setEnabled(false);
-        txtQuantidadeVagas.setEnabled(false);
-        txtSiglaTurma.setEnabled(false);
+        
         //Botões
         btnConsultar.setEnabled(true);
         btnInserir.setEnabled(false);
@@ -375,20 +344,12 @@ public class GuiTurma extends javax.swing.JFrame {
         // Limpar campos
         this.limparCampos();
 
-        // Foco
-        txtSiglaTurma.requestFocus();
-
         // Desabilitando componentes
-        //ComboBox
-        cbxCurso.setEnabled(false);
-        cbxPeriodo.setEnabled(false);
-        //FormattedTxt
-        formattedDataInicio.setEnabled(false);
-        formattedDataTermino.setEnabled(false);
-        // Txts
-        txtNome.setEnabled(false);
-        txtQuantidadeVagas.setEnabled(false);
-        txtSiglaTurma.setEnabled(false);
+        this.habilitarCampos(false);
+        
+        // Foco
+        txtNome.requestFocus();
+        
         //Botões
         btnConsultar.setEnabled(true);
         btnInserir.setEnabled(false);
@@ -407,16 +368,7 @@ public class GuiTurma extends javax.swing.JFrame {
             txtSiglaTurma.requestFocus();
 
             //Desabilitando componentes
-            //CombosBox
-            cbxCurso.setEnabled(false);
-            cbxPeriodo.setEnabled(false);
-            //FormattedTxts
-            formattedDataInicio.setEnabled(false);
-            formattedDataTermino.setEnabled(false);
-            //Txts
-            txtNome.setEnabled(false);
-            txtQuantidadeVagas.setEnabled(false);
-            txtSiglaTurma.setEnabled(false);
+            this.habilitarCampos(false);
 
             //Botões
             btnConsultar.setEnabled(true);
@@ -486,7 +438,7 @@ public class GuiTurma extends javax.swing.JFrame {
         });
     }
 
-    public void limparCampos() {
+    private void limparCampos() {
         //Cbxs
         cbxCurso.setSelectedItem("");
         cbxPeriodo.setSelectedItem("");
@@ -497,7 +449,20 @@ public class GuiTurma extends javax.swing.JFrame {
         txtSiglaTurma.setText("");
         txtNome.setText("");
         txtQuantidadeVagas.setText("");
-
+    }
+    
+    private void habilitarCampos(boolean habilita) {
+        cbxCurso.setEnabled(habilita);
+        cbxPeriodo.setEnabled(habilita);
+        
+        //FormattedTxts
+        formattedDataInicio.setEnabled(habilita);
+        formattedDataTermino.setEnabled(habilita);
+        
+        //Txts
+        txtNome.setEnabled(habilita);
+        txtQuantidadeVagas.setEnabled(habilita);
+        txtSiglaTurma.setEnabled(!habilita);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
